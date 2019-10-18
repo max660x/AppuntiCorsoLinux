@@ -1,0 +1,597 @@
+Corso Linux					#Author Massimo Du Toit					
+[DAY 1]
+
+Main OS Components:
+- Kernel Manages the operation of the computer
+- Shell provides for interaction between the user and the computer
+- FileSystem provides a way to organize and manage all information on the computer's disk(s)
+
+Role of the Kernel
+main program loaded at startup that manages the computer.
+
+The Shell
+The Shell is a program that allows the user to type commands options and arguments
+Many shell programs exist
+most popular shell is Bash
+a usershell can be changed by the usermod command by root
+user default shell is stored in /etc/passwd
+
+Accessing the Shell
+from gui opening the terminal
+from cli provided by default at login
+
+What is a command
+a program executed on the command line
+includes: 
+	built-in shell commands
+	binary commands stored in files
+	aliases
+	functions
+	scripts
+	
+Basic command syntax
+syntax command options
+commands options adn arguments are all case sensitives
+
+Speicufying options
+short options are specified with a hyphen and a single character such as -a
+short option can be combined
+long options are specified whith a double hyphen and a word such as --help	[means no more options]
+long options cannot be combined
+both short and long options can be combined
+bsd style options use no hypen
+
+Specifying Arguments
+arguments follow options
+argument are normally file or directory name
+
+exec
+The  exec() family of functions replaces the current process image with  a new process image
+
+uname 
+uname displays useful system information
+
+pwd
+present current workinf directory
+-L displays Logical position
+-P	displays physical location
+
+FHS
+FileSystem hierarchy standard is standard that specifies standard directories and their content for use with a filesystem
+helps to know what directories to expect to find and what to find in them
+Allows programmers to write programms  that will be able to work across a wide variety of systems tha conform to this standard
+
+Standard schema
+/				root
+bin				Essential user executables
+boot			contains the kernel and bootloader files
+dev				Populated with files representing attached devices
+etc				Host Specific configuration files
+home			common location for user home directories
+mnt				mount point for temporarly mounting a filesystem			
+lib				essential libraries for bin and sbin executables
+proc			
+root			home directory of root user
+sbin			Administrative executables
+opt 			contains optional third party add-on softwares
+tmp				temporarly files
+usr/			root id the secondary filesystem hierarchy
+	bin			where user executables are stored 
+	doc			location of manuals
+	include		where the c compilator resources are located
+	lib
+	local
+	sbin
+	share
+		doc		another location of manuals
+var/
+	log
+	spool
+	tmp
+srv				may contain data provided by services 
+
+Locate command
+useful for fast searches of a filesystem or a file because is stored into a database
+db is updated daily
+updatedb updates the db
+locate "filename"
+locate follows user permissions
+find is a live search command
+find "start" -name file_name
+	-iname		unsensitive
+	-mtime		default is days
+	-mmin		dafault is mintes
+	-size		default is kB
+	-user		owner
+	-nouser			
+	-empty		empty files
+	-type
+	-maxdepth
+	-inum		to find an inode
+whereis shows the directory location and the man of a program (search only in directories defined in the path variable)
+which displays the location of a determinated program 
+man command will display documentation for commands
+	man "command"
+man pages are standard:	name
+						synopsys	the syntax of that command
+						options		option for that command
+						files		see the dependencies
+						see also
+
+info is another command helper, less used than man, but more verbose. is not mandatory to a command to have an info page
+command --help	shows a reference of that command, so less verbose.
+
+File Manipulation
+
+ls		list files in directories
+	options:
+	-a shows all files
+	-S sort by size
+	-t sort by modification time
+	-r reverse
+	-R Recursive
+	-l verbose 
+cp		copy files and directories
+	cp /path/to/old/file /path/to/new/file
+	options:
+	-r recursive
+	-v verify
+mv		move and/or rename files
+	mv path/to/old/file /path/to/new/file
+rm		remove files and directories
+	rm path/to/file
+	options:
+	-f force
+	-i interactive
+	-r recursive
+mkdir	make new directories
+	mkdir path/to/new/dir
+	options:
+	-p	to/create/an/entire/path/of/directories
+rmdir 	remove EMPTY directories
+file 	displays what data is inside of a file
+touch	updates the timestamp
+		could create a new file
+stat 	the stat command will display informations about files
+
+Text Utilities
+
+cat 		command merges two files into one 
+				cat file1 file2 > file3
+			command shows the content of a file
+				cat file1
+vi			basic file editor
+more 		to show the view the file one page at time
+less 		to navigate a file with vi-like commands
+split		to break large files into smaller ones
+			split /path/to/file prefix
+			options:
+			-d for numeric prefix
+nl			will prompt hte lines of a file that are not blank
+			options:
+			-ba to numerate all lines
+head		shows the top 10 lines
+			options:
+			-n number shows the $number of lines
+			-n -number don't show the first &-number lines
+tail		shows to bottom 10 lines
+			options:
+			-n number show the $number of lines
+			-f to follow the message (^C to escape)
+paste 		command to merge the files line by line using tab as  a delimeter
+			options:
+			-d to chamge delimeter
+join		command to merge the files if matches something or a sort
+			options:
+			-t to specify parameter
+expand		will convert tab spaces into spaces
+unexpand	will convert spaces to tabs
+cut			extract a fields from a text file
+			head path/to/file | cut -d_delimitator -f_fields	#_ means attached
+			options:
+			-d_delimitator
+			-f_fields
+sort		sort lines of text files
+			options:
+			-k to revert the displayed data
+			-t_'delimitator'									#_ means attached
+			-n numeric
+uniq		to remove the duplicate lines from sorted documents
+fmt			does to format to format text
+			options:
+			-w to specify width
+pr			is used to format before print
+od			perfom octal dump
+			options:
+			-a     same as -t a,  select named characters, ignoring high-order bit                                                                       
+			-b     same as -t o1, select octal bytes                                 
+			-c     same as -t c,  select ASCII characters or backslash escapes       
+			-d     same as -t u2, select unsigned decimal 2-byte units               
+			-f     same as -t fF, select floats                                      
+			-i     same as -t dI, select decimal ints                                
+			-l     same as -t dL, select decimal longs                               
+			-o     same as -t o2, select octal 2-byte units                          
+			-s     same as -t d2, select decimal 2-byte units                        
+			-x     same as -t x2, select hexadecimal 2-byte units
+tr			command that can be used to translate one set of characters to another
+				tr 'a-z' 'A-Z	< path/to/file
+sed			is a strean editor that can be used to modify text
+				sed 's(ubstitute)/Source/Dest' path/to/file
+			options:
+			-i to modify the original file
+			-g to per
+			-a/ to append
+			-/I to not match the case
+echo		print something
+				echo something
+
+Globbing
+
+wildcards	*		means any
+			?		means just one character, concatenable
+			[abc]	means range
+			[a-c]
+			[1-9]
+					you can also concatenate wildcars like:
+						echo [1-9]*			#means start with 1 to 9 and ends with anything
+
+VI
+
+vi is an ascii text editor available in all linux versions
+vi forks in 3 modes:
+	- Command:
+		-- move cursor
+		-- edit text (delete)
+	- Insert (to enter i,a or o)
+		--type text
+	- Ex/last line modes (: / or ?)
+		--save (s)
+		--quit	(q)
+		--search (/)	
+		--set prefernces
+	Commands:
+		hjkl			to navigate 
+		arrows			also to navigate
+		w				one word after
+		b 				one word back
+		^				start of file
+		$				end of line
+		G				goes to the last line
+		dd				delete current line
+		ndd				delete n lines
+		dw 				delete that word
+		ndw				delete n words
+		ndh				delete n character from left
+		cc				change a line
+		cw				change a word
+		yy				copy into clipboard
+		yw				copy word into clipboard
+		y$				copy endline into clipboard
+		p				paste after cursor
+		P				paste before clipboard
+		a				insert mode at the cursor
+		A 				insert mode at the end of line
+		i				insert mode before cursor
+		I				insert mode beginning of line
+		o				insert mode blank line after cursor
+		O				insert mode	blank line before cursor
+		:w				write file to filesystem
+		:w name			wirte file with $name filename
+		:w!				force writing
+		:l				set cursor to $l line
+		:e				open 
+		:q				quit
+		:q!				force quit
+		:set nu			show line numbers
+		:set showmode	set current mode
+		/string			search for $string string
+
+[DAY 2]
+
+variables
+
+variables are one key component of bash shell
+variables are names that can be assigned a value
+name=value
+variable names should start with a letter or a underscore
+we have two types of variables, local and environment
+name=value				#local variable
+export name=value		#environment variable that can be used by the subshells
+
+set				shows the local and environment variables
+env				shows only the environment
+declare -x		shows only the environment
+export			is used to promote a variable from local to environment
+			export $name || export name=value
+				options:
+					-p	shows environment variables
+echo			is used to show the content of a variable
+			echo $name
+pstree			to show process tree
+unset			deletes the variable
+			unset $name
+PATH variable contains a set of files and directory (using : as delimeter for fields)
+PATH contains paths for sets of commands (like /usr/bin/:/bin/)
+we can also add path to PATH variable to add other commands
+
+Inizialization files
+
+initializazion files set the values of variables create aliases and functions and executes 
+commands that are useful to using shell
+there are two types of initializazion files:
+global		#are specific for the system
+local		#are specific for the user
+all this files are hidden and are contained in the home directory of every user [/home/user/.bash_profile]
+the /etc/profile file contains scripts thasy affects any user 
+
+history 		command can be used to show the history of commands executed
+		option:
+			-c clear
+			-r to read from .bash_history and writes into the history
+			-w to read the history and write it into the .bash_history
+		variables:
+		HISTFILESIZE	how much long the file is
+		HISTFILE		change the hist location
+		HISTCONTROL		to manipulate the history file such as ignoring spaces and duplicates
+		HISTIGNORE		to ignore common commands
+!!				repeat last command
+!-n				repeat command executed n runs ago
+!n				execute the n comand of history
+![chars]		execute the last command that starts with [chars]		#ignoring the []
+!?[chars]		execute the last command that ends with  [chars]		#ignoring the []
+
+Standard text streams and redirection
+
+standard output (stdout) is the output that is printed into shell
+the > sign is used to redirect the stdout to another place
+a single > override existing contents
+a double >> appends to the end of file
+standard error (stderr) is the output of error of a command
+the 2> sign is used to redirect the error to another place
+a single > override existing contents
+a double >> appends to the end of file
+to discard output redirect it to /dev/null
+we can also concatenate the error and the output
+	cmd >> out.txt 2>> err.txt
+	cmd &> out
+standart input (stdin) stand for inputs
+the < is used to trasfer input
+
+Command Pipe
+is used to concatenate commands " | " and pass the commands from one to another
+concatenate from left to right
+cat file | more
+
+tee 		is oused to redirect  the output to a file and to the stdout
+		options:
+		-a, --append              append to the given FILEs, do not overwrite
+xargs		reads items from stdin and concatenates them
+			[Run COMMAND with arguments INITIAL-ARGS and more arguments read from input]
+
+Archive commands
+Linux provides severeal utilities for compressing and archive files
+tar command merges multiple directories and files into a single file
+tar	does not compress files
+	options:
+		-c	creates a file
+		-t	table of content
+		-x	extract from tar file
+		-v 	verbose
+		-z	gzip compression
+		-j	bzip2 compression
+		-f	used to extract,and put to into archive <--- Mandatory to be in last position
+		-C	used to specify a path where to extract a file
+tar 	preserves all the information about a file like is author, or permissions
+gzip 	is similar to zip command, but with some differences:
+		-it replaces the original file with the zipped file
+		-when it compress recursively it doesen't merge the files together
+	options:
+		-c	to preserve the original file
+		-r	to operate recursively
+gunzip 	is used to uncompress an archive
+	options:
+		-l 	to shows the informations about the zipped file
+bzip2 	is very similar to gzip except for the -r option
+bunzip2	is used to unzip bzip2 files
+zip		is used to merge files together into a single file and compress the resulting file
+		zip appends .zip extension even if not specified
+	options:
+		-r to operate recursively
+unzip	to unzip
+xz		is used to compress and decompress
+	options:
+		-z to comprime files individually
+		-d to decompress
+cpio	is an archive command which can merge many files into a single archive .cpio
+		three modes:
+		copy-out to copy into an archive
+		copy-in	 to copy from an archive
+		copy-pass to copy and delete
+	options:
+		-i	Extract files from an archive (run in copy-inmode)
+		-o  Create the archive (run in copy-out mode)
+		-p  Run in copy-pass mode
+		-t	Print a table of contents of the input
+		-v	verbose						
+		-d 	create directories
+		-u	override existing files
+dd		is a utility for copying files at bit level
+		-it can be used to clone or delete entire disks or partions
+		-it can be used to copy raw data to/from removable devices
+		-it can backup and restore the MBR
+		-it can be used to create large files for virtual memory
+	options:
+		-if=/path/to/file		input file
+		-of=/path/to/file 		output file
+		-bs=					block size
+		-count= 				number of block to read from the input file
+alias	to create an alias		#add to /home/user/.bashrc to save it for a user||.bash_aliases
+	aliasname='something magic'
+unalias	to remove alias
+
+Regex
+Regular expressions are patterns that only certain commands are able to interpret
+grep	displays all lines that match a regular extension	
+	options:
+	--color 	to color the matches
+	-E 			for extended(egrep)
+	-r			for recursive
+	-i			for case insensitive
+	
+	RegEx:
+	.		any one single character
+	[]		any one specified character
+	[^]		none one specified character
+	The ^  and  the  $  are  meta-characters that respectively match the empty string at the beginning and end of a line
+	?      The preceding item is optional and matched at most once.
+    *      The preceding item will be matched zero or more times.
+	{n}    The preceding item is matched exactly n times.
+    {n,}   The preceding item is matched n or more times.
+    {,m}   The preceding item is matched at most m times.  This is a GNU extension.
+    {n,m}  The preceding item is matched at least n times, but not more than m times.
+fgrep 	command alway treats patterns as literal characters
+	
+Processes
+process is request by the user ->  kernel	1-> allocates CPU time
+											2->	assigns P(rocess)ID for tracking
+											3->	allocates RAM space
+linux manages tasks using processes
+processes can be initiated by either os or user
+process can have subprocesses
+
+ps		process status command list running processes
+	pid: processid
+	tty:  the tty who's using that process
+	time: process time
+	cmd:  the source of that process
+	ppid: parent processid
+	options:
+	-f		more details
+	-e		all users processes
+	-a		more details BSD stile
+	-x		process who uses a tty
+
+Foreground process is a process that print the output on the shell and is in some way interactive
+Background process is a process who runs in background to run a process in background run the command appending &
+jobs 	shows the background processes
+bg		to put in background a job
+fg		to put in foreground a job
+control+c	to kill a job
+control+z	to put in pause and send it in background
+kill	to send a signal to a process
+		 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL       5) SIGTRAP
+		 6) SIGABRT      7) SIGBUS       8) SIGFPE       9) [SIGKILL]   10) SIGUSR1
+		11) SIGSEGV     12) SIGUSR2     13) SIGPIPE     14) SIGALRM     15) SIGTERM
+		16) SIGSTKFLT   17) SIGCHLD     18) SIGCONT     19) SIGSTOP     20) SIGTSTP
+		21) SIGTTIN     22) SIGTTOU     23) SIGURG      24) SIGXCPU     25) SIGXFSZ
+		26) SIGVTALRM   27) SIGPROF     28) SIGWINCH    29) SIGIO       30) SIGPWR
+		31) SIGSYS      34) SIGRTMIN    35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3
+		38) SIGRTMIN+4  39) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8
+		43) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13
+		48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13 52) SIGRTMAX-12
+		53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7
+		58) SIGRTMAX-6  59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2
+		63) SIGRTMAX-1  64) SIGRTMAX
+killall	to stop more processes
+	options:
+		-u to kill an entire user user processes
+process priority
+not all processe have the same access to the cpu, follow a niceness of a process from [high]-20 to [low]19 [default is 0]
+nice 	is used to set the niceness of a process
+renice	is used to reset the nicess of a process [sudo only]
+uptime 	shows the uptime of that session
+free 	to show the free memory
+	option:
+		-h human readable
+
+Permissions
+Permissions allow users to protect files and directories
+three types of permissions exists:
+Read		r		Permits to read a file
+Write		w		Permits to write into a file
+Exexute		x		Permits to execute a file
+File  Own.  Group Others	#Own. refeers to User, but prefereed to understand what it is
+-	  rwx	rwx   rwx			
+d	  rwx	r-x	  r-x   ##x is mandatory to access to a directory	
+#	  ###	###	  ###	number of link	owner group size timestamp filename
+
+chmod	is used to change file permissions you must be the owner or the root
+		we can use the symbolic or the octal
+		chmod u[+-=][r,w,x] g[+-=][r,w,x] o[+-=][rwx] #symbolic	##use a instead of u/g/o for change to them all
+		chmod $U$G$O 								  #octal	##r:4 w:2 x:1 sum the values to obtain a permission set ###ex 000 eq ---------
+																															###	  777 eq rwxrwxrwx
+													  #the sticky value is another number before the 3 number of permission
+													  #the most common is sticky 1000($U$G$O) that causes files inside directory to be able to be removed only
+													  #by the owner, or the root user
+chown 	is used to change the ownership of file or directory 	   	#have to run with an administrator
+chgrp	is used to change the group ownership of file or directory 	#have to run with an administrator
+umask	is used to assign the deafult permissions					#only affects the new files and not interfeeer with advaced permissions
+		works by the subtracion of the umask with the passed value
+
+DAY 3:
+
+Links
+a link is a way to make a file more accessible from muliple part of the system
+there are two types of links
+soft link	also called symbolic link
+			is a file type designed to point to another file
+			with soft links you can create links between differt filesystem
+			and can link directories
+		ln -s /path/to/original/file new/file
+hard links 	are two or more files that share the same inode
+			files linked are identical except for the filename
+		ln /path/to/original new/file	
+			to find hard link use:
+		find -inum inode id
+inode structure, the same you see with ls -l:
+    Mode/permission (protection)
+    Owner ID
+    Group ID
+    Size of file
+    Number of hard links to the file
+    Time last accessed
+    Time last modified
+    Time inode last modified 
+
+Hardware Configuration
+Core Hardware:
+	CPU:				32 bit x86	64 bit x86_64        #lscpu
+														 #cat /proc/info
+	RAM					Max 32 bit ram: 4GiB
+						Max 64 bit ram: 16 EiB
+						Swap Space:						 	   #used when ram is full
+							also called virtual memory or swap #cat /proc/meminfo
+															   #free
+	FIRMWARE			Software provided by the computer hardware
+						BIOS
+						UEFI
+						initiate the boot process
+						helps the kernel to recognise devices
+	Mass Storage Device	used to store data
+						SCSI 	small comuputer system interface
+						IDE		Integrated Drive Electronics 
+						SATA	Serial Advanced Technology Attachment
+						USB		Universal serial bus
+	Plung and play		Cold plug	when system must be powered off before attach/detach
+						Hot plug	also called plug and play, you can attach/detach them wihtout powering off the machine
+	Hardware Resources	are mandatory to let the system work
+						resources nowday are autoconfigured
+						io ports							#/proc/ioports
+						io memory							#/proc/iomem
+						interrupts							#/proc/irq/*
+						Direct memory access channels		#/proc/DMA
+					lspici	to view internal devices
+						option:
+						-v		verbose
+						-vv		more verbose
+						-vvv 	more more verbose
+						-nn		vendor name
+						-d		show devices with that id
+					lsusb to show usb devices, first shown are usb hubs, then usb devices
+						option:
+						-v		verbose
+						
+
+
+
+
