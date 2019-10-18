@@ -590,7 +590,30 @@ Core Hardware:
 					lsusb to show usb devices, first shown are usb hubs, then usb devices
 						option:
 						-v		verbose
-						
+	
+	BootProcess
+		Power-on Self Test (Post)
+			Ensure System Hardware is working properly
+		Load Master Boot Record (MBR)
+			Contains drive partition table and loads first-stage-bootloader
+			whose purpose is to load the second-stage-bootloader
+		Second-stage-bootloader
+			loads the linux kernel into memory
+			loads the bootloader:
+				LILO 	- 	Linux Loader
+				ELILO	- 	Efi Linux Loader
+				GRUB 	- 	Grand Unified Bootloader
+				SILO 	- 	SPARC Improved Bootloader (Sun system)
+				YABOOT	- 	yet another bootloader
+				PXE		- 	preboot execution environment [network booting via tftp]
+		Kernel Stage 3
+			Initializes Hardware Drivers
+			Mounts the root filesystem
+				contains key system commands and scripts
+			Start the first process called init
+			
+			
+			
 
 
 
