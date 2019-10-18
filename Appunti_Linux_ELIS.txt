@@ -591,28 +591,41 @@ Core Hardware:
 						option:
 						-v		verbose
 	
-	BootProcess
-		Power-on Self Test (Post)
-			Ensure System Hardware is working properly
-		Load Master Boot Record (MBR)
-			Contains drive partition table and loads first-stage-bootloader
-			whose purpose is to load the second-stage-bootloader
-		Second-stage-bootloader
-			loads the linux kernel into memory
-			loads the bootloader:
-				LILO 	- 	Linux Loader
-				ELILO	- 	Efi Linux Loader
-				GRUB 	- 	Grand Unified Bootloader
-				SILO 	- 	SPARC Improved Bootloader (Sun system)
-				YABOOT	- 	yet another bootloader
-				PXE		- 	preboot execution environment [network booting via tftp]
-		Kernel Stage 3
-			Initializes Hardware Drivers
-			mounts the /udev that fetch hardware information
-			Mounts the root filesystem
-				contains key system commands and scripts
-			Start the first process called init
-			
+BootProcess
+	Power-on Self Test (Post)
+		Ensure System Hardware is working properly
+	Load Master Boot Record (MBR)
+		Contains drive partition table and loads first-stage-bootloader
+		whose purpose is to load the second-stage-bootloader
+	Second-stage-bootloader
+		loads the linux kernel into memory
+		loads the bootloader:
+			LILO 	- 	Linux Loader
+			ELILO	- 	Efi Linux Loader
+			GRUB 	- 	Grand Unified Bootloader
+			SILO 	- 	SPARC Improved Bootloader (Sun system)
+			YABOOT	- 	yet another bootloader
+			PXE		- 	preboot execution environment [network booting via tftp]
+	Kernel Stage 3
+		Initializes Hardware Drivers
+		Mounts the /udev that fetch hardware information
+		Mounts the root filesystem
+			contains key system commands and scripts
+		Start the first process called init
+	Init stage 4
+		final boot stage
+		parent process pid 0 responsible for start all other system processes
+		the /etc/inittab file is read to determine what scripts to run to start services
+		if init has been replace by Upstart the scripts in /etc/init used to complete system initializazion
+		if init has been replace by systemd  then the files in /etc/systemd to complete system initializazion
+		both systemd and Upstart reefs to the init executable to mantain compatibility with many executable processes
+	
+	dmesg 	is a command used to see the bootprocess log  #/var/log/dmesg or /var/log/syslog
+														  #updates by syslogd(rsyslogd) and klogd(syslog-ng)
+														  #
+														  #/var/log/ is the place where all logs are stored
+														  #/var/log/messages is a place where all logs are stored
+
 			
 			
 
