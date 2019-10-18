@@ -600,9 +600,23 @@ BootProcess
 	Second-stage-bootloader
 		loads the linux kernel into memory
 		loads the bootloader:
-			LILO 	- 	Linux Loader
-			ELILO	- 	Efi Linux Loader
-			GRUB 	- 	Grand Unified Bootloader
+			LILO 	- 	Linux Loader											#configuration file /etc/lilo.conf then run lilo command to reload the bootloader
+																				#lilo at the boot offers an interactive menu, enter to select, tab to navigate 
+			ELILO	- 	Efi Linux Loader										
+			GRUB 	- 	Grand Unified Bootloader								#exist 2 version legacy and 2.0
+																				#doesn't differ ide and sata disks
+																				#drives and and partitions labels starts from 0
+																				#configuration file is stored in /boot/grub/grub.conf
+																				##link is /etc/grub.conf
+																				#grub offers the different os at the start
+																				#you can also set the password [p] to invocate the password prompt
+																				#you can also encrypt password with mda5 algorythm with grub-mda5-encrypt
+																				#2.0 has the ability from lvm or raid
+																				#ability to work across devices inlcuding efi devices
+																				#/boot/grub2/grub.cfg || /boot/grub/grub.cfg
+																				##link in /etc/grub.d || /etc/deafult/grub
+																				##update-grub || grub2-mkconfig when executed
+																				
 			SILO 	- 	SPARC Improved Bootloader (Sun system)
 			YABOOT	- 	yet another bootloader
 			PXE		- 	preboot execution environment [network booting via tftp]
@@ -641,7 +655,7 @@ Hardware Subsystem:
 				event occuors
 	
 Kernel modules
-software dsifned to help the kernel to communicate with a devices
+software defined to help the kernel to communicate with a devices
 	lsmod 		is a command to show the active modules	
 	modprobe	is a command to load modules
 		options:
