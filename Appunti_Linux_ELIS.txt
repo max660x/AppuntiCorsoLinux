@@ -662,6 +662,57 @@ software defined to help the kernel to communicate with a devices
 	modprobe	is a command to load modules
 		options:
 		-r 		to remove (to unload the module)
+		
+Runlevel
+different states of the system 
+uses numeric values from 0 to 9
+   runlv:   purpose:					systemd.target:
+		0	power off					poweroff.target
+		1	single user mode			rescue.target
+		2 	multi user mode no network	multiuser.target
+		3	normal startup				multiuser.target
+		4 	user definable				multiuser.target
+		5	graphical environment		graphical.target
+		6	restart 					reboot.target
+traditional init configuration file #/etc/inittab
+upstart configuration file			#/etc/init
+systemd configuration				#/etc/systemd
+set default runlevel
+	traditional: 	modify the /etc/inittab entry  "id:runlevel:initdefault"
+	upstart: 		change the variable [DEFAULT_RUNLEVEL] /etc/init/rc-sysinit.conf
+	systemd:		grafical.target = runlevel 5
+					create a link in /etc/systemd/system/default.target
+Runlevel can be changed after boot using the init command plus the runlv
+runlevel	command show the runlevel
+who -r		command show the runlevel
+telinit 	same as init
+	options:
+	-t		to specify the time to run that command
+systemctl	command to mangage services and to change the run levels with isolate
+	systemctl isolate choosetargethere.target
+shutdown	is used to shutdown the machine
+	options:
+	+time	to delay $
+	now		to shutdown nown
+	-r		to reboot
+	-h		to halt the machine
+wall		is used to send message to all users
+		echo -e "something magic" | wall
+
+Daemon
+the administrator can control which services will be provided to the users
+services are traditionally associated with daemons
+to manually change services 		#/etc/rc.d/init.d/
+									#/etc/init.d is a symbolic link
+each script start or stop a service or a feature
+service $dmnname $command			#do whatever you want with that service
+chkconfig --list		to check which services are used at which runlevel
+chkconfig --list $sname	to check what levels the service is loaded			
+#for debian /etc/init directory is used to store upstart script
+the systemctl commandi is used in systems that have systemd
+	systemctl $action $sname	systemctl syntax
+
+
 
 
 
