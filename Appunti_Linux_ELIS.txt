@@ -626,8 +626,27 @@ BootProcess
 														  #/var/log/ is the place where all logs are stored
 														  #/var/log/messages is a place where all logs are stored
 
-			
-			
+Hardware Subsystem:
+	/udev		fetch hardware information, mantains the same /dev filesystem structure
+				it writes the /dev filesystem
+				which files are created, along with ownership and permissions, can be administrated
+				in /etc/udev/rules.d
+	sysfs		sysfs subsystem is the /sys directory which hold information about currently connected 
+				devices
+	hald		Hardware Abstraction Layer (HAL) daemon (D) is responsible for discovering and mantaining
+				a list of connected devices stored in /sys
+			lshal  is a command for displaying items in the HAL device database. 
+	dbus		when programs wants informations about devices ther are able to query hald using dbus
+				programs can also register to dbus to recieve notification from hald when specific types of hardware
+				event occuors
+	
+Kernel modules
+software dsifned to help the kerne to communicate with a devices
+	lsmod 		is a command to show the active modules	
+	modprobe	is a command to load modules
+		options:
+		-r 		to remove (to unload the module)
+		
 
 
 
