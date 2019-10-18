@@ -616,7 +616,9 @@ BootProcess
 																				#/boot/grub2/grub.cfg || /boot/grub/grub.cfg
 																				##link in /etc/grub.d || /etc/deafult/grub
 																				##update-grub || grub2-mkconfig when executed
-																				
+																				##/sbin/grub-mkconfig to regenerate the config file
+																				##/sbin/grub2-install /dev/sda to install grub
+																				##create configuration files grub-mkconfig -o \ /boot/grub2/grub.cfg || update-grub
 			SILO 	- 	SPARC Improved Bootloader (Sun system)
 			YABOOT	- 	yet another bootloader
 			PXE		- 	preboot execution environment [network booting via tftp]
