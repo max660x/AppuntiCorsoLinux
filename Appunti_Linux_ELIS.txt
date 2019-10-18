@@ -608,6 +608,7 @@ Core Hardware:
 				PXE		- 	preboot execution environment [network booting via tftp]
 		Kernel Stage 3
 			Initializes Hardware Drivers
+			mounts the /udev that fetch hardware information
 			Mounts the root filesystem
 				contains key system commands and scripts
 			Start the first process called init
