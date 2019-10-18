@@ -641,13 +641,11 @@ Hardware Subsystem:
 				event occuors
 	
 Kernel modules
-software dsifned to help the kerne to communicate with a devices
+software dsifned to help the kernel to communicate with a devices
 	lsmod 		is a command to show the active modules	
 	modprobe	is a command to load modules
 		options:
 		-r 		to remove (to unload the module)
-		
-
 
 
 
