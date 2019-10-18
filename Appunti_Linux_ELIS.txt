@@ -1,5 +1,5 @@
 Corso Linux					#Author Massimo Du Toit					
-[DAY 1]
+							#available at https://github.com/max660x/AppuntiCorsoLinux/blob/master/Appunti_Linux_ELIS.txt
 
 Main OS Components:
 - Kernel Manages the operation of the computer
@@ -286,8 +286,6 @@ vi forks in 3 modes:
 		:set showmode	set current mode
 		/string			search for $string string
 
-[DAY 2]
-
 variables
 
 variables are one key component of bash shell
@@ -527,8 +525,6 @@ chown 	is used to change the ownership of file or directory 	   	#have to run wi
 chgrp	is used to change the group ownership of file or directory 	#have to run with an administrator
 umask	is used to assign the deafult permissions					#only affects the new files and not interfeeer with advaced permissions
 		works by the subtracion of the umask with the passed value
-
-DAY 3:
 
 Links
 a link is a way to make a file more accessible from muliple part of the system
