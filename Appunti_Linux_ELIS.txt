@@ -708,6 +708,128 @@ chkconfig --list $sname	to check what levels the service is loaded
 the systemctl commandi is used in systems that have systemd
 	systemctl $action $sname	systemctl syntax
 
+Design a Scheme
+Partitioning 
+is used to optimize the use of disk space
+-	Boom		
+-	Head	the laser pointer who reads from disk
+- 	Spindle	the central cilinder of the disk, where the disks spins around
+-	Sector	is where we store data
+-	Track	the "lines" divided in sectors
+-	Platter
+- 	Cylinder	the "z-axys" of the disk
+
+Each partition has a unique name
+Partition filenames are stored in /dev and are based on the drive where they reside
+Two different interface: 									#after the interface id we can find a letter and or a number
+						/dev/sd* 	sata disk				#the a tag is used to indicate te main partition
+						/dev/hd*	pata/ide disk
+Traditional disks usind mbr partitioninf can have a maximum of four primary partions
+an extended partition acts like a container for additional logical partitions
+
++----MBRDisk----+			+----EXTDisk----+		
+|				|			|				|
+|	sdb1		|			|	sdb1		|
+|				|			|				|
++---------------+			+---------------+
+|				|			|	logical		|
+|	sdb2		|			|	VOLUME 1	|
+|				|				...								  
++---------------+				logical
+|				|				VOLUME N
+|	sdb3		|			+---------------+
+|				|
++---------------+
+|				|
+|	sdb4		|
+|				|
++---------------+
+
+commone file system:
+ext2		works well with small disk file system (like solit state drives)
+ext3		performs journaling(preserves metadata), it can be upgraded from ext2
+ext4		supports large disks volumes and files can operate with/out journaling
+raiserfs	
+xfs
+vfat		supports the fat filesystem
+iso9660		CD-Rom filesystem
+
+filesystem:
+	bootblock
+	Superblock:		Area of the beginning of the filesystem used to store importat information
+					about the filesystem and which daata blocks are available
+	CylinderGroup1:
+		-Superblock Copy
+		-cg info
+		-block bitmap
+		-inode table
+		-data blocks
+Suggested/standard disk sizing
+	Directory:				Size:
+	/						500Mib-50GiB+ Depends on what is mounted separately
+	/boot					500Mib-2GiB
+	/home					500Mib+ per User
+	/tmp					at least 5GB+ 500 MiB+ per user actively logged in
+	/opt					100 Mib depnds on how many packges
+	swap					up to 2 times the physical memory of the system
+	/usr					2Gib-10Gib
+	/usr/local				100Mib+ it depends on local needs
+	/var					100Mib+ depends on volume activity
+
+Creating Partition
+	fdisk		command allows tou to create and delete partions after installation of the os
+				you must press save to apply changes
+		options:
+		-u		to display sectors
+		-c     	to avoid ms-dos incompatibility
+		-l		to list extisting partions			##DeviceBoot start end block id system
+	
+	sfdisk		command is a fdisk-like for automate partitioning need to backup and restore
+		options:
+		-s 		to list disks and sizes
+		-d 		to backup current table before making changes
+		-f		to restore original table
+
+Logical volume management is a method of managing hard disk space that provides more flexibilty with
+						  hot plug support
+						 -support snapshot of filesystem
+lvm is implemented by grouping one or more physical volumes into a volume group
+physical volumes can be normal partions or even entire disks
+space from voulme grou,e can be allocated to one ore more logical volumes
+resize live filesystem using [lvextend and resize2fs]
+	pvcreate	to create physical volumes
+	vgcreate	to create volume group 
+	lvcreate	to create logical volume
+the names follows the pattern /dev/dm1 /dev/dm2 ... /dev/dm3
+the details are store into /dev/mapper
+	mkfs	is used to create filesystems
+		options:
+	-t		to specify filesystem type
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
