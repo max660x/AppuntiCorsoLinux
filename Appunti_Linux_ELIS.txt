@@ -805,8 +805,54 @@ the details are store into /dev/mapper
 	mkfs	is used to create filesystems
 		options:
 	-t		to specify filesystem type
-
-
+	mk2fs	is callet even by mkfs, and is used to create ext234
+		options:
+	-b  	specifies the block size of the filesystem
+	-N		specifies the number of inodes
+	-m		specify what percentage to reserve to the OS
+	
+	mkswap 	is used to create swap
+		-L	to label it [mandatory]
+	swapon	to enable swapspace
+Mountpoint of the filesystem must be empty, if is not the files will be hided from the mounted source
+	mount	shows the mounted filesystem + /dec/tobemounted	/path/to/mount
+		options
+		-a, --all               mount all filesystems mentioned in fstab
+		-c, --no-canonicalize   don't canonicalize paths
+		-f, --fake              dry run; skip the mount(2) syscall
+		-F, --fork              fork off for each device (use with -a)
+		-T, --fstab <path>      alternative file to /etc/fstab
+		-i, --internal-only     don't call the mount.<type> helpers
+		-l, --show-labels       show also filesystem labels
+		-n, --no-mtab           don't write to /etc/mtab
+		-o, --options <list>    comma-separated list of mount options
+			remount
+              Attempt to remount an already-mounted filesystem.  This is commonly used to change the mount flags  for
+              The remount operation together with the bind flag has special semantic
+		-O, --test-opts <list>  limit the set of filesystems (use with -a)
+		-r, --read-only         mount the filesystem read-only (same as -o ro)
+		-t, --types <list>      limit the set of filesystem types
+			--source <src>      explicitly specifies source (path, label, uuid)
+			--target <target>   explicitly specifies mountpoint
+		-v, --verbose           say what is being done
+		-w, --rw, --read-write  mount the filesystem read-write (default)
+		-h, --help              display this help
+		-V, --version           display version
+	unmount  to unmount filesistem	/path/to/unmount
+			 if targeted filesystem is in use you cannot unmount
+	lsof	to show all opened file in that filesystem
+	fuser 	to show what are users doing
+		-v prints how the filesystem is used
+		      c      current directory.
+              e      executable being run.
+              f      open file.  f is omitted in default display mode.
+              F      open file for writing.  F is omitted in default display mode.
+              r      root directory.
+              m      mmap'ed file or shared library.
+              .      Placeholder, omitted in default display mode
+	cat /etc/fstab  to show filesystem infos
+	fsck	is used to check and optionally repair one or more Linux filesystems.
+	
 
 
 
