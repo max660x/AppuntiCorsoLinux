@@ -851,10 +851,13 @@ Mountpoint of the filesystem must be empty, if is not the files will be hided fr
               m      mmap'ed file or shared library.
               .      Placeholder, omitted in default display mode
 	cat /etc/fstab  to show filesystem infos
-	fsck	is used to check and optionally repair one or more Linux filesystems.
-	
-
-
+	fsck		is used to check and optionally repair one or more Linux filesystems.
+	df			Show information about the file system on which each FILE resides, or all file systems by default.
+	du 			print disk usage
+	tune2fs 	allows  the system administrator to adjust various tunable filesystem parameters on Linux ext2, ext3, or ext4 filesystems.
+	dumpe2fs	dumpe2fs prints the super block and blocks group information for the filesystem present on device.
+		options:
+		-h 		to show only superblock information
 
 
 
