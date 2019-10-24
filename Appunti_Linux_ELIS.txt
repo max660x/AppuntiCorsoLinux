@@ -902,8 +902,22 @@ package_name-version-release.architecture.rpm/dpkg  [.dsc for debian source code
 		option:
 		-P		to remove and clean
 		-l 		to show installed packets
-
-
+		
+SharedLibraries
+SharedLibraries are softwares used between different programs
+libraries end in .so
+advantages:
+ -	each program can be smaller
+ - 	the programmerscan use a more consistent base of code
+ -	programs can be developed fast
+libraries are located in in /lib/ld-linux.so	or 		/lib/ld.so
+LD_LIVRARY_PATH is a variable where all libraries links are stored
+/etc/ld.so.cach is a cache file
+	ldconfig 	is a command that can add paths to the LD_LIVRARY_PATH variable
+				/etc/ld.so.conf.d/*.conf
+				/etc/ld.so.conf
+	ldd  		prints  the  shared objects (shared libraries) required by each program or shared object specified on the
+				command line
 
 
 
