@@ -859,18 +859,49 @@ Mountpoint of the filesystem must be empty, if is not the files will be hided fr
 		options:
 		-h 		to show only superblock information
 
+Linux File System Quotas
 
+This feature allows to allocate a maximum amount of disk space a user or group may use.  
+It can be flexible in its adherence to the rules assigned and is applied per filesystem. 
+The default Linux Kernel which comes with Redhat and Fedora Core comes with quota support compiled in.
 
+Edit file /etc/fstab to add qualifier "usrquota" or "grpquota" to the partition. 
+The following file system mounting options can be specified in /etc/fstab: grpquota, noquota, quota and usrquota
+	- To enable user quota support on a file system, 
+	  add "usrquota" to the fourth field containing the word "defaults".
+	- Replace "usrquota" with "grpquota", should you need group quota support on a file system. 
+	- Need both user quota and group quota support on a file system? [defaults,usrquota,grpquota]
 
+	quotacheck		 Quotacheck is used to scan a file system for disk usages, and updates the 
+					 quota record file "quota.user/aquota.user" to the most recent state 
+	quotaon/off 		 turn filesystem quotas on and off 
+	edquota 		 edit user quotas 
+	quota 			 display disk usage and limits 
+	repquota -a		 summarize quotas for a filesystem
 
-
-
-
-
-
-
-
-
+Package managment
+a packet follows this standard :
+package_name-version-release.architecture.rpm/dpkg  [.dsc for debian source code]
+	rpm	 	command is used to install/remove a packet, but not installing dependencies
+		options:
+	 -a, --all                          query/verify all packages
+	 -f, --file                         query/verify package(s) owning file
+	 -g, --group                        query/verify package(s) in group
+     -p, --package                      query/verify a package file
+	 --scripts                      list install/erase scriptlets from package(s)
+	yum 	is the same thing but can install/remove dependencies
+			/etc/yum.conf		the yum config file
+			/etc/yum.repos.d	the yum repos directory
+	apt		apt is a commandline package manager and provides commands for
+			searching and managing as well as querying information about packages.
+			/etc/apt/sources.list	the repos list
+			apt-get update to update list
+			apt-get install to resolve repos and install a package
+	dpkg	dpkg is a tool to install, build, remove and manage Debian packages. The primary and more user-friendly front-
+			end for dpkg is aptitude.
+		option:
+		-P		to remove and clean
+		-l 		to show installed packets
 
 
 
